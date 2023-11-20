@@ -39,8 +39,10 @@ class Source:
         entries = []
 
         for collection in r_json:
+            # Clean the CollectionDate string to remove asterisks and surrounding brackets
+            cleaned_date_str = collection["CollectionDate"].replace('*', '').replace('(', '').replace(')', '').replace(' ', '')
             date = datetime.strptime(
-                collection["CollectionDate"].split(" ")[0], "%Y-%m-%d"
+                cleaned_date_str.split(" ")[0], "%Y-%m-%d"
             ).date()
             waste_type = collection["BinCodeDescription"]
             entries.append(
